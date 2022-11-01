@@ -1,0 +1,10 @@
+<app-data-table
+  [items]="users"
+  [columns]="columns"
+  name="Users Table"
+  (viewAction)="onViewEvent($event)"
+  (editAction)="onEditEvent($event)"
+  (deleteAction)="onDeleteEvent($event)"
+  (newAction)="onNewEvent()"
+>
+</app-data-table>

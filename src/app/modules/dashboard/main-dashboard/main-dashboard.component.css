@@ -1,0 +1,16 @@
+.grid-config {
+  height: 120px;
+  font-size: 14px;
+  line-height: 120px;
+  background: #0092ff;
+  
+  
+}
+
+.demo-chart {
+  height: 400px;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 6px;
+  margin: 2px;
+}

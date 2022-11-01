@@ -1,0 +1,95 @@
+<nz-card [nzTitle]="name" [nzExtra]="searchTemplate">
+  <nz-table
+    #dataTable
+    [nzData]="data"
+    [nzPageSizeOptions]="nzPageSizeOptions"
+    [nzPageSize]="nzPageSize"
+    nzShowSizeChanger
+  >
+    <thead>
+      <tr>
+        <th
+          *ngFor="let header of headers"
+          [nzSortOrder]="header.sortOrder"
+          [nzSortDirections]="header.sortDirections"
+          [nzSortFn]="header.sortFn"
+          nzAlign="center"
+          nzWidth="header.width"
+        >
+          {{ header.name }}
+        </th>
+        <th nzAlign="center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataTable.data">
+        <td *ngFor="let header of headers" nzAlign="center">
+          <nz-badge
+            *ngIf="header.key == 'id'; else elseSpan"
+            nzStandalone
+            [nzStyle]="{ backgroundColor: '#1890ff' }"
+            [nzCount]="item[header.key]"
+            [nzOverflowCount]="10000000"
+          ></nz-badge>
+          <ng-template #elseSpan>{{ item[header.key] }}</ng-template>
+        </td>
+        <td nzAlign="center">
+          <button
+            nz-button
+            (click)="onViewAction(item.id)"
+            nzType="text"
+            nzTooltipTitle="View"
+            nzTooltipPlacement="top"
+            nzTooltipColor="#1890ff"
+            nz-tooltip
+          >
+            <i nz-icon nzType="read" style="color: #1890ff"></i>
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button
+            nz-button
+            (click)="onEditAction(item.id)"
+            nzType="text"
+            nzTooltipTitle="Edit"
+            nzTooltipColor="#87d068"
+            nzTooltipPlacement="top"
+            nz-tooltip
+          >
+            <i nz-icon nzType="edit" style="color: #87d068"></i>
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button
+            nz-button
+            (click)="onDeleteAction(item.id)"
+            nzType="text"
+            nzDanger
+            nzTooltipTitle="Delete"
+            nzTooltipPlacement="top"
+            nzTooltipColor="#ff4d4f"
+            nz-tooltip
+          >
+            <i nz-icon nzType="delete"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #searchTemplate>
+  <div style="display: flex;">
+    <button
+      nz-button
+      (click)="onNewAction()"
+      nzType="primary"
+      style="margin-right: 6px"
+    >
+      New
+    </button>
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="input search text" #search />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+</ng-template>

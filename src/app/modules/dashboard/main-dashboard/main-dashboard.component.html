@@ -1,0 +1,58 @@
+<div class="gutter-example">
+  <div nz-row [nzGutter]="[8, 8]">
+    <div nz-col class="gutter-row" nzXs="24" nzMd="8">
+      <div echarts [options]="tempGuageOption" class="demo-chart"></div>
+    </div>
+    <div nz-col class="gutter-row" nzXs="24" nzMd="8">
+      <div echarts [options]="radarOptions" class="demo-chart"></div>
+    </div>
+    <div nz-col class="gutter-row" nzXs="24" nzMd="8">
+      <div echarts [options]="pressGuageOption" class="demo-chart"></div>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[8, 8]">
+    <div nz-col class="gutter-row" nzXs="24" nzMd="16">
+      <div echarts [options]="barOptions" class="demo-chart"></div>
+    </div>
+    <div nz-col class="gutter-row"  nzXs="24" nzMd="8">
+      <div class="demo-chart">
+        <nz-card>
+          <nz-statistic
+            [nzValue]="(48.28 | number: '1.0-2')!"
+            [nzTitle]="'Humidity'"
+            [nzPrefix]="prefixTplOne"
+            [nzSuffix]="'%'"
+            [nzValueStyle]="{ color: '#3F8600' }"
+          ></nz-statistic>
+          <ng-template #prefixTplOne
+            ><i nz-icon nzType="arrow-up"></i
+          ></ng-template>
+        </nz-card>
+        <nz-card>
+          <nz-statistic
+            [nzValue]="(69.3 | number: '1.0-2')!"
+            [nzTitle]="'Clouds'"
+            [nzPrefix]="prefixTplTwo"
+            [nzSuffix]="'%'"
+            [nzValueStyle]="{ color: '#CF1322' }"
+          ></nz-statistic>
+          <ng-template #prefixTplTwo
+            ><i nz-icon nzType="arrow-down"></i
+          ></ng-template>
+        </nz-card>
+        <nz-card>
+          <nz-statistic
+            [nzValue]="(12.3 | number: '1.0-2')!"
+            [nzTitle]="'Wind'"
+            [nzPrefix]="prefixTplThree"
+            [nzSuffix]="'m/s'"
+            [nzValueStyle]="{ color: '#1890ff' }"
+          ></nz-statistic>
+          <ng-template #prefixTplThree
+            ><i nz-icon nzType="minus"></i
+          ></ng-template>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+</div>

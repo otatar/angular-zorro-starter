@@ -1,0 +1,128 @@
+<nz-layout>
+  <nz-sider
+    nzCollapsible
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+    [nzWidth]="240"
+  >
+    <div class="logo" nz-row>
+      <div nz-col nzFlex="1">
+        <img src="assets/images/logo.svg" height="35" width="40" />
+      </div>
+      <div nz-col nzFlex="4" [hidden]="isCollapsed">
+        <h4 nz-typography style="color: white; padding-left: 4px">
+          ZORRO Starter
+        </h4>
+      </div>
+    </div>
+    <ul nz-menu nzMode="inline" nzTheme="dark">
+      <ng-container *ngFor="let menu of menus; index as i">
+        <li
+          nz-menu-item
+          *ngIf="!menu.items"
+          (click)="menuClickHandler()"
+          [routerLink]="menu.path"
+        >
+          <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+          <span>{{ menu.title }}</span>
+        </li>
+        <li
+          nz-submenu
+          [nzOpen]="menuOpenStateMap[i]"
+          (nzOpenChange)="menuOpenHandler(i)"
+          [nzTitle]="menu.title"
+          [nzIcon]="menu.icon"
+          *ngIf="menu.items"
+        >
+          <ul>
+            <ng-container *ngFor="let menuLevel1 of menu.items">
+              <li
+                nz-menu-item
+                *ngIf="!menuLevel1.items"
+                [routerLink]="menuLevel1.path"
+              >
+                <i
+                  nz-icon
+                  [nzType]="menuLevel1.icon"
+                  *ngIf="menuLevel1.icon"
+                ></i>
+                <span>{{ menuLevel1.title }}</span>
+              </li>
+              <li
+                nz-submenu
+                [nzTitle]="menuLevel1.title"
+                [nzIcon]="menuLevel1.icon"
+                *ngIf="menuLevel1.items"
+              >
+                <ul>
+                  <ng-container *ngFor="let menuLevel2 of menuLevel1.items">
+                    <li nz-menu-item [routerLink]="menuLevel2.path">
+                      <span>{{ menuLevel2.title }}</span>
+                    </li>
+                  </ng-container>
+                </ul>
+              </li></ng-container
+            >
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div nz-row nzJustify="space-between" nzAlign="middle">
+        <i
+          class="trigger"
+          nz-icon
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="isCollapsed = !isCollapsed"
+        ></i>
+        <button nz-button nzType="default" nzShape="circle" (click)="toggleTheme()">
+          <i nz-icon nzType="clear"></i>
+        </button>
+        <button
+          nz-button
+          nz-dropdown
+          nzTrigger="click"
+          nzShape="round"
+          [nzDropdownMenu]="profileMenu"
+          style="margin-right: 16px"
+        >
+          <i nz-icon nzType="user"></i>
+          <ng-container
+            *ngIf="
+              userAccount.user.firstName != '' &&
+                userAccount.user.firstName != '';
+              else username
+            "
+          >
+            {{ userAccount.user.firstName }} {{ userAccount.user.lastName }}
+          </ng-container>
+          <ng-template #username>
+            {{ userAccount.user.username }}
+          </ng-template>
+          <i nz-icon nzType="down"></i>
+        </button>
+        <nz-dropdown-menu #profileMenu="nzDropdownMenu">
+          <ul nz-menu>
+            <ng-container *ngFor="let item of profileMenuItems; index as i">
+              <li nz-menu-item (click)="profileMenuClickHandler(i)">
+                <i nz-icon [nzType]="item.icon" style="margin-right: 8px"></i
+                ><span>{{ item.title }}</span>
+              </li>
+            </ng-container>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer
+      >Zorro Starter ©2022 Implemented by Omer Tatar (otatar)</nz-footer
+    >
+  </nz-layout>
+</nz-layout>
